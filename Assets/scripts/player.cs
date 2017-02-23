@@ -6,11 +6,11 @@ public class player : MonoBehaviour {
 
 	Animator anim;
 
+
 	// Use this for initialization
 	void Start () {
 
 		anim = GetComponent<Animator>();
-		
 	}
 	
 	// Update is called once per frame
@@ -21,9 +21,10 @@ public class player : MonoBehaviour {
 
 	public void jump(){
 
-		if(Input.GetKeyDown(KeyCode.Space)){
+		if(Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0) && Input.GetTouch(0).phase == TouchPhase.Began){
 
 			anim.Play("jump");
+
 
 		}
 
