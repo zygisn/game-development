@@ -43,15 +43,19 @@ public class player : MonoBehaviour {
 
 	public void jump(){
 
-		if(Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0) && Input.GetTouch(0).phase == TouchPhase.Began){
+		if(!gameManager.instance.getGameState()){
 
-			rb.useGravity = true;
-			rb.velocity = new Vector2(0f, 0f); // Disabling player falling velocity 
-			rb.freezeRotation = true; // Disabling player rotation on Y axis
-			rb.AddForce(0f, jumpForce, 0f, ForceMode.Impulse);
-			audioSource.PlayOneShot(sfxJump);
-			anim.Play("jump");
+			if(Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0) && Input.GetTouch(0).phase == TouchPhase.Began){
 
+				gameManager.instance.playerBecomesActive();
+				rb.useGravity = true;
+				rb.velocity = new Vector2(0f, 0f); // Disabling player falling velocity 
+				rb.freezeRotation = true; // Disabling player rotation on Y axis
+				rb.AddForce(0f, jumpForce, 0f, ForceMode.Impulse);
+				audioSource.PlayOneShot(sfxJump);
+				anim.Play("jump");
+
+			}
 		}
 
 	}
@@ -60,7 +64,9 @@ public class player : MonoBehaviour {
 
 		if(collision.gameObject.tag == "rock"){
 		
+			rb.AddForce(-20f, -40f, 0f, ForceMode.Impulse);
 			audioSource.PlayOneShot(sfxDeath);
+			gameManager.instance.gameIsOver();
 		
 		}
 

@@ -48,6 +48,7 @@
   <ItemGroup>
      <Compile Include="Assets\Scripts\floatingRock.cs" />
      <Compile Include="Assets\Scripts\fps.cs" />
+     <Compile Include="Assets\Scripts\gameManager.cs" />
      <Compile Include="Assets\Scripts\moveObject.cs" />
      <Compile Include="Assets\Scripts\player.cs" />
      <None Include="Assets\Zombie\models\animation list.txt" />

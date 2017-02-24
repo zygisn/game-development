@@ -80,6 +80,7 @@
 -define:UNITY_TEAM_LICENSE
 'Assets/Scripts/floatingRock.cs'
 'Assets/Scripts/fps.cs'
+'Assets/Scripts/gameManager.cs'
 'Assets/Scripts/moveObject.cs'
 'Assets/Scripts/player.cs'
 -r:'/Applications/Unity/Unity.app/Contents/MonoBleedingEdge/lib/mono/unity/System.Runtime.Serialization.dll'
