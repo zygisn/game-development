@@ -5,8 +5,12 @@ using UnityEngine;
 public class player : MonoBehaviour {
 
 	[SerializeField] private float jumpForce = 70f;
+	[SerializeField] private AudioClip sfxJump;
+
 	private Animator anim;
 	private Rigidbody rb;
+	private AudioSource audioSource;
+
 
 
 	// Use this for initialization
@@ -14,6 +18,7 @@ public class player : MonoBehaviour {
 
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
+		audioSource = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -34,6 +39,7 @@ public class player : MonoBehaviour {
 			rb.velocity = new Vector2(0f, 0f); // Disabling player falling velocity 
 			rb.freezeRotation = true; // Disabling player rotation on Y axis
 			rb.AddForce(0f, jumpForce, 0f, ForceMode.Impulse);
+			audioSource.PlayOneShot(sfxJump);
 			anim.Play("jump");
 
 
