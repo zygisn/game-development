@@ -1,16 +1,25 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;  //to catch empty Serialize fields
 
 public class player : MonoBehaviour {
 
 	[SerializeField] private float jumpForce = 70f;
 	[SerializeField] private AudioClip sfxJump;
+	[SerializeField] private AudioClip sfxDeath;
 
 	private Animator anim;
 	private Rigidbody rb;
 	private AudioSource audioSource;
 
+
+	void Awake() {
+
+		Assert.IsNotNull (sfxJump);
+		Assert.IsNotNull (sfxDeath);
+
+	}
 
 
 	// Use this for initialization
@@ -19,6 +28,7 @@ public class player : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
+
 	}
 	
 	// Update is called once per frame
@@ -42,9 +52,20 @@ public class player : MonoBehaviour {
 			audioSource.PlayOneShot(sfxJump);
 			anim.Play("jump");
 
+		}
 
+	}
+
+	void OnCollisionEnter(Collision collision){
+
+		if(collision.gameObject.tag == "rock"){
+		
+			audioSource.PlayOneShot(sfxDeath);
+		
 		}
 
 
 	}
+
+
 }
