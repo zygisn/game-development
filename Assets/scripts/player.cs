@@ -43,7 +43,7 @@ public class player : MonoBehaviour {
 
 	public void jump(){
 
-		if(!gameManager.instance.getGameState()){
+		if(!gameManager.instance.getGameState() && gameManager.instance.isGameStarted()){
 
 			if(Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0) && Input.GetTouch(0).phase == TouchPhase.Began){
 
@@ -67,6 +67,7 @@ public class player : MonoBehaviour {
 			rb.AddForce(-20f, -40f, 0f, ForceMode.Impulse);
 			audioSource.PlayOneShot(sfxDeath);
 			gameManager.instance.gameIsOver();
+			StartCoroutine(gameManager.instance.gameOverTxt());
 		
 		}
 

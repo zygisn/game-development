@@ -1,16 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 public class gameManager : MonoBehaviour {
 
 	public static gameManager instance = null;
 
+	[SerializeField] private GameObject mainMenu;
+	[SerializeField] private GameObject gameOverTexture;
+
 	private bool playerActive = false;
 	private bool gameOver = false;
+	private bool gameStarted = false;
 
 
 	void Awake(){
+
+		Assert.IsNotNull(mainMenu);
 
 		if(instance == null){
 			
@@ -51,6 +58,25 @@ public class gameManager : MonoBehaviour {
 	public void gameIsOver(){
 
 		gameOver = true;
+
+	}
+
+	public void startGame(){
+
+		mainMenu.SetActive(false);
+		gameStarted = true;
+	}
+
+	public bool isGameStarted(){
+
+		return gameStarted;
+	}
+
+	public IEnumerator gameOverTxt(){
+
+		yield return new WaitForSeconds(3f);
+		gameOverTexture.SetActive(true);
+
 	}
 
 }
