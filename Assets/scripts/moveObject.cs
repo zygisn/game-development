@@ -21,7 +21,7 @@ public class moveObject : MonoBehaviour {
 	protected virtual void moveObjectLeft(){
 
 
-		if(!gameManager.instance.getGameState()){
+		if(!gameManager.instance.isGameOver()){
 
 			transform.Translate(Vector3.left * (objectSpeed * Time.deltaTime));
 

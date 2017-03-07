@@ -19,7 +19,7 @@ public class floatingRock : moveObject {
 	// Update is called once per frame
 	void Update () {
 
-		if(gameManager.instance.getPlayerState()){
+		if(gameManager.instance.isPlayerActive()){
 
 			base.moveObjectLeft();
 		}

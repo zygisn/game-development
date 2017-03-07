@@ -43,7 +43,7 @@ public class player : MonoBehaviour {
 
 	public void jump(){
 
-		if(!gameManager.instance.getGameState() && gameManager.instance.isGameStarted()){
+		if(!gameManager.instance.isGameOver() && gameManager.instance.isGameStarted()){
 
 			if(Input.GetKeyDown(KeyCode.Space) || (Input.touchCount > 0) && Input.GetTouch(0).phase == TouchPhase.Began){
 

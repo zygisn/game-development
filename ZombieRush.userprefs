@@ -1,12 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/scripts/player.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets/Scripts/gameManager.cs">
     <Files>
-      <File FileName="Assets/scripts/moveObject.cs" Line="17" Column="20" />
-      <File FileName="Assets/scripts/floatingRock.cs" Line="29" Column="25" />
-      <File FileName="Assets/scripts/player.cs" Line="3" Column="18" />
-      <File FileName="Assets/scripts/fps.cs" Line="27" Column="46" />
-      <File FileName="Assets/Scripts/gameManager.cs" Line="3" Column="19" />
+      <File FileName="Assets/Scripts/gameManager.cs" Line="83" Column="1" />
+      <File FileName="Assets/Scripts/moveObject.cs" Line="31" Column="38" />
+      <File FileName="Assets/Scripts/floatingRock.cs" Line="24" Column="4" />
+      <File FileName="Assets/Scripts/player.cs" Line="76" Column="2" />
+      <File FileName="Assets/Scripts/fps.cs" Line="27" Column="46" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

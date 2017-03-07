@@ -40,19 +40,20 @@ public class gameManager : MonoBehaviour {
 		
 	}
 
-	public bool getPlayerState (){
+	public bool isPlayerActive (){
 
 		return playerActive;
 	}
 
-	public bool getGameState(){
+	public void playerBecomesActive (){
+
+		playerActive = true;
+	}
+		
+
+	public bool isGameOver(){
 
 		return gameOver;
-	}
-
-	public void playerBecomesActive (){
-	
-		playerActive = true;
 	}
 
 	public void gameIsOver(){
@@ -60,8 +61,9 @@ public class gameManager : MonoBehaviour {
 		gameOver = true;
 
 	}
+		
 
-	public void startGame(){
+	public void startTheGame(){
 
 		mainMenu.SetActive(false);
 		gameStarted = true;
