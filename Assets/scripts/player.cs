@@ -9,6 +9,7 @@ public class player : MonoBehaviour {
 	[SerializeField] private AudioClip sfxJump;
 	[SerializeField] private AudioClip sfxDeath;
 
+
 	private Animator anim;
 	private Rigidbody rb;
 	private AudioSource audioSource;
