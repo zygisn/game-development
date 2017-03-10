@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using UnityEngine.UI;
 
  // to catch empty Serialized fields
 using UnityEngine.SceneManagement;
@@ -16,11 +17,17 @@ public class gameManager : MonoBehaviour
 	private Vector3 lp;
 	//Last touch position
 	private float dragDistance;
+	private int points = 0;
 
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject gameOverTexture;
 	[SerializeField] private GameObject zombie;
 	[SerializeField] private GameObject zombieOnPlay;
+
+	[SerializeField] private GameObject rockets;
+	[SerializeField] private GameObject warning;
+	[SerializeField] private Text score;
+
 
 	private bool playerActive = false;
 	private bool gameOver = false;
@@ -51,10 +58,14 @@ public class gameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		score.text = "Score: 0";
 		dragDistance = Screen.height * 15 / 100; //dragDistance is 15% height of the screen
 
 		originalPlayerMaterialColor = zombie.GetComponent<Renderer> ().material.color;
 		currentPlayerMaterialColor = originalPlayerMaterialColor;
+
+		InvokeRepeating("createRockets", 5f, 15f);
+		InvokeRepeating("addPoints", 5f, 10f);
 
 	}
 	
@@ -62,6 +73,8 @@ public class gameManager : MonoBehaviour
 	void Update ()
 	{
 		swipeControlls ();
+		//Invoke("createRockets", 5f);
+
 	}
 
 	public bool isPlayerActive ()
@@ -118,6 +131,28 @@ public class gameManager : MonoBehaviour
 
 		SceneManager.LoadScene ("game");
 		//mainMenu.SetActive(false);
+	}
+
+	public void createRockets(){
+
+		if(isPlayerActive()){
+			float y = Random.Range(-10f, 0f);
+			//Instantiate(warning, new Vector3(13.07f, y-2, 1f), Quaternion.identity);
+			Instantiate(rockets, new Vector3(transform.position.x,y,0), Quaternion.identity);
+			Instantiate(rockets, new Vector3(transform.position.x+9,y-2,0), Quaternion.identity);
+			Instantiate(rockets, new Vector3(transform.position.x+18,y-4,0), Quaternion.identity);
+
+		}
+
+	}
+
+	public void addPoints(){
+
+		if(isPlayerActive() && !isGameOver()){
+			points += 20;
+			score.text = "Score: " + points;
+		}
+
 	}
 
 

@@ -8,12 +8,12 @@ public class player : MonoBehaviour {
 	[SerializeField] private float jumpForce = 70f;
 	[SerializeField] private AudioClip sfxJump;
 	[SerializeField] private AudioClip sfxDeath;
+	[SerializeField] private AudioClip sfxExplosion;
 
 
 	private Animator anim;
 	private Rigidbody rb;
 	private AudioSource audioSource;
-
 
 	void Awake() {
 
@@ -29,7 +29,6 @@ public class player : MonoBehaviour {
 		anim = GetComponent<Animator>();
 		rb = GetComponent<Rigidbody>();
 		audioSource = GetComponent<AudioSource>();
-
 	}
 	
 	// Update is called once per frame
@@ -63,14 +62,21 @@ public class player : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision){
 
-		if(collision.gameObject.tag == "rock"){
-		
+		if(collision.gameObject.tag == "rock" || collision.gameObject.tag == "rocket" || collision.gameObject.tag == "ground"){
+
+			//gameObject.GetComponent<Collider>().isTrigger = true;
 			rb.AddForce(-20f, -40f, 0f, ForceMode.Impulse);
-			audioSource.PlayOneShot(sfxDeath);
+
+			if(collision.gameObject.tag == "rock" || collision.gameObject.tag == "ground"){
+				audioSource.PlayOneShot(sfxDeath);
+			}else{
+				audioSource.PlayOneShot(sfxExplosion);
+			}
 			gameManager.instance.gameIsOver();
 			StartCoroutine(gameManager.instance.gameOverTxt());
 		
 		}
+			
 
 
 	}
