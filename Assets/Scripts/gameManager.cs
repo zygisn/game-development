@@ -19,6 +19,8 @@ public class gameManager : MonoBehaviour
 	private float dragDistance;
 	private int points = 0;
 
+	[SerializeField] private List<GameObject> rocketList;
+
 	[SerializeField] private GameObject mainMenu;
 	[SerializeField] private GameObject gameOverTexture;
 	[SerializeField] private GameObject zombie;
@@ -26,6 +28,7 @@ public class gameManager : MonoBehaviour
 
 	[SerializeField] private GameObject rockets;
 	[SerializeField] private GameObject warning;
+	[SerializeField] private GameObject scoreGO;
 	[SerializeField] private Text score;
 
 
@@ -58,6 +61,7 @@ public class gameManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
+		scoreGO.SetActive(false);
 		score.text = "Score: 0";
 		dragDistance = Screen.height * 15 / 100; //dragDistance is 15% height of the screen
 
@@ -65,6 +69,7 @@ public class gameManager : MonoBehaviour
 		currentPlayerMaterialColor = originalPlayerMaterialColor;
 
 		InvokeRepeating("createRockets", 5f, 15f);
+		InvokeRepeating("destroyRockets", 10f, 15f);
 		InvokeRepeating("addPoints", 5f, 10f);
 
 	}
@@ -73,7 +78,7 @@ public class gameManager : MonoBehaviour
 	void Update ()
 	{
 		swipeControlls ();
-		//Invoke("createRockets", 5f);
+
 
 	}
 
@@ -109,6 +114,7 @@ public class gameManager : MonoBehaviour
 
 		mainMenu.SetActive (false);
 		gameStarted = true;
+		scoreGO.SetActive(true);
 		zombieOnPlay.GetComponent<Renderer>().material.color = currentPlayerMaterialColor;
 	}
 
@@ -137,10 +143,12 @@ public class gameManager : MonoBehaviour
 
 		if(isPlayerActive()){
 			float y = Random.Range(-10f, 0f);
+
 			//Instantiate(warning, new Vector3(13.07f, y-2, 1f), Quaternion.identity);
-			Instantiate(rockets, new Vector3(transform.position.x,y,0), Quaternion.identity);
-			Instantiate(rockets, new Vector3(transform.position.x+9,y-2,0), Quaternion.identity);
-			Instantiate(rockets, new Vector3(transform.position.x+18,y-4,0), Quaternion.identity);
+			rocketList.Add(Instantiate(rockets, new Vector3(transform.position.x,y,0), Quaternion.identity));
+			rocketList.Add(Instantiate(rockets, new Vector3(transform.position.x+9,y-2,0), Quaternion.identity));
+			rocketList.Add(Instantiate(rockets, new Vector3(transform.position.x+18,y-4,0), Quaternion.identity));
+			//StartCoroutine(blinkWarning());
 
 		}
 
@@ -152,6 +160,18 @@ public class gameManager : MonoBehaviour
 			points += 20;
 			score.text = "Score: " + points;
 		}
+
+	}
+
+	public void destroyRockets(){
+
+		Destroy(rocketList[0]);
+		Destroy(rocketList[1]);
+		Destroy(rocketList[2]);
+
+		rocketList.RemoveAt(2);
+		rocketList.RemoveAt(1);
+		rocketList.RemoveAt(0);
 
 	}
 
@@ -175,7 +195,8 @@ public class gameManager : MonoBehaviour
 					if (Mathf.Abs (lp.x - fp.x) > dragDistance || Mathf.Abs (lp.y - fp.y) > dragDistance) {//It's a drag
 						//check if the drag is vertical or horizontal
 						if (Mathf.Abs (lp.x - fp.x) > Mathf.Abs (lp.y - fp.y)) {   //If the horizontal movement is greater than the vertical movement...
-							if ((lp.x > fp.x)) {  //If the movement was to the right)//Right swipe
+							if ((lp.x > fp.x)) {  //If the movement was to the right)
+								//Right swipe
 								zombie.GetComponent<Renderer> ().material.color = Color.red;
 								currentPlayerMaterialColor = zombie.GetComponent<Renderer> ().material.color;
 
@@ -197,6 +218,22 @@ public class gameManager : MonoBehaviour
 					}
 				}
 			}
+		}
+	}
+
+
+	public IEnumerator blinkWarning(){
+
+		//warning.SetActive(false);
+
+		for(int i=0; i < 5; i++)
+		{
+
+			warning.SetActive(true);
+
+			yield return new WaitForSeconds(1);
+
+			warning.SetActive(false);
 		}
 	}
 
